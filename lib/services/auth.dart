@@ -10,7 +10,7 @@ class AuthService {
   }
 
   // auth change user stream
-  Stream<BrewUser?> get user {
+  Stream<BrewUser?>? get user {
     return _auth.authStateChanges().map(_userFromFirebaseUser);
   }
 
