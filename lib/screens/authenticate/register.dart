@@ -2,16 +2,16 @@ import 'package:brew_crew/services/auth.dart';
 import 'package:brew_crew/shared/constants.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
 
-  const SignIn({Key? key, required this.toggleView}) : super(key: key);
+  const Register({Key? key, required this.toggleView}) : super(key: key);
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -27,14 +27,14 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.brown.shade400,
         elevation: 0.0,
-        title: const Text('Sign in to Brew Crew'),
+        title: const Text('Sign up to Brew Crew'),
         actions: [
           TextButton.icon(
             onPressed: () {
               widget.toggleView();
             },
             icon: const Icon(Icons.person),
-            label: const Text('Register'),
+            label: const Text('Sign In'),
           )
         ],
       ),
@@ -70,19 +70,18 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.pink.shade400),
                 child: const Text(
-                  'Sign in',
+                  'Register',
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    dynamic result =
-                        await _auth.signInWithEmailAndPassword(email, password);
+                    dynamic result = await _auth.registerWithEmailAndPassword(
+                        email, password);
                     if (result == null) {
                       setState(() {
-                        error = 'email or password is incorrect';
+                        error = 'please supply a valid email';
                       });
                     }
-                    print('valid');
                   }
                 },
               ),
